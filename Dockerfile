@@ -7,6 +7,15 @@ FROM scratch
 # import curl from current repository image
 # COPY --from=ghcr.io/tarampampam/curl:8.0.1 /bin/curl /bin/curl
 
+# Copie le binaire shell Bash depuis une autre image
+COPY --from=alpine:latest /bin/bash /bin/bash
+COPY --from=archlinux:base pacman
+
+# Définit /bin/bash comme shell par défaut pour l'image
+SHELL ["/bin/bash", "--login", "-c"]
+
+# Commande par défaut pour lancer un shell interactif
+CMD ["/bin/bash"]
 
 # Importe les fichiers de base Arch Linux depuis un tarball Curl 
 ADD https://geo.mirror.pkgbuild.com/iso/2023.05.03/archlinux-bootstrap-2023.05.03-x86_64.tar.gz /
@@ -24,8 +33,5 @@ RUN sed -i 's/#\(\[options\]\)/\1\nSigLevel = Never/' /etc/pacman.conf && \
     sed -i 's/#\(\[options\]\)/\1\nCheckSpace = false/' /etc/pacman.conf && \
     sed -i 's/#\(\[options\]\)/\1\nILoveCandy/' /etc/pacman.conf
 
-# Définit /bin/bash comme shell par défaut pour l'image
-SHELL ["/bin/bash", "--login", "-c"]
 
-# Commande par défaut pour lancer un shell interactif
-CMD ["/bin/bash"]
+
