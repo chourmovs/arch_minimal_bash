@@ -9,13 +9,15 @@ FROM scratch
 
 # Copie le binaire shell Bash depuis une autre image
 COPY --from=alpine:latest /bin/bash /bin/bash
-COPY --from=archlinux:base pacman
+COPY --from=archlinux:base /bin/pacman /bin/pacman
 
 # Définit /bin/bash comme shell par défaut pour l'image
 SHELL ["/bin/bash", "--login", "-c"]
+SHELL ["/bin/pacman", "--login", "-c"]
 
 # Commande par défaut pour lancer un shell interactif
 CMD ["/bin/bash"]
+CMD ["/bin/pacman"]
 
 # Importe les fichiers de base Arch Linux depuis un tarball Curl 
 ADD https://geo.mirror.pkgbuild.com/iso/2023.05.03/archlinux-bootstrap-2023.05.03-x86_64.tar.gz /
