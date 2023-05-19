@@ -11,6 +11,7 @@ COPY --from=ghcr.io/tarampampam/curl:8.0.1 /bin/curl /bin/curl
 # Importe les fichiers de base Arch Linux depuis un tarball Curl 
 RUN curl -O -J https://geo.mirror.pkgbuild.com/iso/2023.05.03/archlinux-bootstrap-2023.05.03-x86_64.tar.gz
 RUN curl -O -J https://geo.mirror.pkgbuild.com/iso/2023.05.03/archlinux-bootstrap-2023.05.03-x86_64.tar.gz.sig
+RUN ls
 ADD archlinux-bootstrap-2023.05.03-x86_64.tar.gz / 
 
 # Configure les variables d'environnement pour l'installation de Pacman
