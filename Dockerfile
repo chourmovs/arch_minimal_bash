@@ -1,7 +1,15 @@
 # Utilisez une image de base "from scratch" vide
 FROM scratch
 
-# Importe les fichiers de base Arch Linux depuis un tarball
+# import some executable application
+COPY --from=docker.io/containous/whoami:v1.5.0 /whoami /whoami
+
+# import curl from current repository image
+COPY --from=ghcr.io/tarampampam/curl:8.0.1 /bin/curl /bin/curl
+
+
+# Importe les fichiers de base Arch Linux depuis un tarball Curl 
+RUN Curl https://geo.mirror.pkgbuild.com/iso/2023.05.03/archlinux-bootstrap-2023.05.03-x86_64.tar.gz
 ADD archlinux-bootstrap-2023.05.03-x86_64.tar.gz / 
 
 # Configure les variables d'environnement pour l'installation de Pacman
